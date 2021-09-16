@@ -1,53 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import Robot from './components/Robots';
+import React from 'react';
 import styles from './App.module.css';
-import logo from './assets/images/logo.svg'
-import ShoppingCart from './components/ShoppingCart';
-import RobotDiscount from './components/RobotDiscount';
+import { Row,Col, Typography } from 'antd';
+import { Header, Footer, SideMenu, Carousel, ProductCollection } from './components';
+import { productList1, productList2, productList3 } from "./mockup";
+import sideImage from './assets/images/sider_2019_12-09.png';
+import sideImage2 from './assets/images/sider_2019_02-04.png';
+import sideImage3 from './assets/images/sider_2019_02-04-2.png';
 function App() {
-  const [count,setCount]=useState(0);
-  const [robotList,setRobotList] = useState([] as any[]);
-  // 添加loading状态
-  const [loading,setLoading] = useState(false);
-  // 添加错误提示
-  const [errorMsg,setErrorMsg] = useState<string>();
-  useEffect(()=>{
-    document.title=`点击了${count}次`
-  },[count])
-  useEffect(()=>{
-    setLoading(true);
-    const fetchData = async()=>{
-      try{
-        const response=await fetch(`https://jsonplaceholder.typicode.com/users`)
-        const data=await response.json();
-        setRobotList(data);
-      }catch(err:any){
-        setErrorMsg(err.message)
-      }
-    }
-    fetchData()
-    setLoading(false);
-  },[])
   return (
-    <div className={styles.app}>
-      <div className={styles.appHeader}>
-        <img className={styles.appLogo} src={logo} alt="" />
-        <h1>这是robot标题</h1>
+    <div className={styles.App}>
+      <Header />
+      {/* 中间内容page-content */}
+      <div className={styles['page-content']}>
+        <Row>
+          <Col span={6}><SideMenu /></Col>
+          <Col span={18}><Carousel /></Col>
+        </Row>
+        <ProductCollection title={<Typography.Title level={3}>爆款推荐</Typography.Title>} sideImage={sideImage}
+          products={productList1} />
+        <ProductCollection title={<Typography.Title level={3}>爆款推荐</Typography.Title>} sideImage={sideImage2}
+          products={productList2} />
+        <ProductCollection title={<Typography.Title level={3}>爆款推荐</Typography.Title>} sideImage={sideImage3}
+          products={productList2} />
       </div>
-      <div>
-        <button onClick={()=>setCount(count+1)}>click count</button>
-        <span>count:{count}</span>
-        {(!errorMsg|| errorMsg!=='' )&& <div>
-          请求错误：{errorMsg}
-        </div>}
-      </div>
-      {/* 购物车 */}
-      <ShoppingCart />
-      <div className={styles.robotList}>
-      {
-        loading?<div>loading 加载中...</div>:robotList.map((row,index)=> index%2===0?<Robot id={row.id} name={row.name} email={row.email} key={row.id} />:<RobotDiscount id={row.id} name={row.name} email={row.email} key={row.id} /> )
-      }
-      </div>
+      <Footer />
     </div>
   );
 }

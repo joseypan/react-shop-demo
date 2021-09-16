@@ -8,7 +8,7 @@ const defaultContextValue:defaultValProps ={
     shoppingCart:{items:[]}
 }
 export const appContext = createContext(defaultContextValue);
-export const appSetStateContext = createContext(undefined)
+export const appSetStateContext = createContext<React.Dispatch<React.SetStateAction<defaultValProps>>|undefined>(undefined)
 const AppProvide:React.FC=(props)=>{
     const [state,setAppState] = useState(defaultContextValue);
     return <appContext.Provider value={state}>
