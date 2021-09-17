@@ -1,29 +1,19 @@
 import React from 'react';
 import styles from './App.module.css';
-import { Row,Col, Typography } from 'antd';
-import { Header, Footer, SideMenu, Carousel, ProductCollection } from './components';
-import { productList1, productList2, productList3 } from "./mockup";
-import sideImage from './assets/images/sider_2019_12-09.png';
-import sideImage2 from './assets/images/sider_2019_02-04.png';
-import sideImage3 from './assets/images/sider_2019_02-04-2.png';
+import { BrowserRouter,Route,Switch } from 'react-router-dom';
+import { HomePage,SignInPage,RegisterPage,DetailPage } from './pages';
 function App() {
   return (
     <div className={styles.App}>
-      <Header />
-      {/* 中间内容page-content */}
-      <div className={styles['page-content']}>
-        <Row>
-          <Col span={6}><SideMenu /></Col>
-          <Col span={18}><Carousel /></Col>
-        </Row>
-        <ProductCollection title={<Typography.Title level={3}>爆款推荐</Typography.Title>} sideImage={sideImage}
-          products={productList1} />
-        <ProductCollection title={<Typography.Title level={3}>爆款推荐</Typography.Title>} sideImage={sideImage2}
-          products={productList2} />
-        <ProductCollection title={<Typography.Title level={3}>爆款推荐</Typography.Title>} sideImage={sideImage3}
-          products={productList2} />
-      </div>
-      <Footer />
+      <BrowserRouter>
+        <Switch>
+          <Route path='/' exact component={HomePage} />
+          <Route path='/signIn' component={SignInPage} />
+          <Route path='/register' component={RegisterPage} />
+          <Route path='/detail/:touristRouteId' component={DetailPage} />
+          <Route render={(()=><h1>404 not found!</h1>)} />
+       </Switch>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import { Image,Typography } from 'antd';
+import { Image, Typography } from 'antd';
+import { Link } from 'react-router-dom';
 interface PropType{
     id: string | number;
     size: 'large' | 'small';
@@ -7,7 +8,7 @@ interface PropType{
     title: string;
 }
 export const ProductImage: React.FC<PropType> = ({id,size,imageSrc,price,title}) => {
-    return <>
+    return <Link to={`/detail/${id}`}>
     {size === "large" ? (
       <Image src={imageSrc} height={285} width={490} />
     ) : (
@@ -21,5 +22,5 @@ export const ProductImage: React.FC<PropType> = ({id,size,imageSrc,price,title})
         ¥ {price} 起
       </Typography.Text>
     </div>
-  </>
+  </Link>
 }

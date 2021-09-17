@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../../assets/images/logo.svg';
 import { Typography, Dropdown, Menu, Button, Input, Layout } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import styles from './Header.module.css';
 export const Header: React.FC = () => {
     const menu = (
@@ -13,7 +14,8 @@ export const Header: React.FC = () => {
             English
           </Menu.Item>
         </Menu>
-      );
+  );
+  const history = useHistory();
 return <div className={styles['app-header']}>
     {/* topHeader */}
   <div className={`${styles['top-header']}`}>
@@ -25,15 +27,17 @@ return <div className={styles['app-header']}>
         </Dropdown.Button>
       </div>
       <Button.Group>
-        <Button>登录</Button>
-        <Button>注册</Button>
+        <Button onClick={()=>history.push(`/signIn`)}>登录</Button>
+        <Button onClick={()=>history.push(`/register`)}>注册</Button>
       </Button.Group>
    </div>
     </div>
     {/* header */}
   <Layout.Header className={styles['main-header']}>
+    <span onClick={()=>history.push(`/`)}>
     <img src={Logo} alt="" className={`${styles['App-logo']}`} />
     <Typography.Title level={3} className={styles.title}>仿携程旅游网</Typography.Title>
+    </span>
     <Input.Search className={styles['search-input']} placeholder={`请输入旅游目的地、景区、城市`} />
   </Layout.Header>
   {/* nav部分 */}
